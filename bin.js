@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const path = require('path')
-const truffleExtract = require('./')
+const buidlerExtract = require('./')
 
 const argv = require('yargs')
   .usage('Usage: $0 [options]')
@@ -15,8 +15,8 @@ const argv = require('yargs')
   .option('build-dir', {
     alias: 'b',
     coerce: buildDir => path.resolve(process.cwd(), buildDir),
-    default: 'build/contracts',
-    describe: 'Directory of truffle build files',
+    default: 'artifacts',
+    describe: 'Directory of buidler build files',
     group: 'Directories',
     type: 'string',
   })
@@ -60,7 +60,7 @@ if (!verbose) {
   console.log('Extracting files...\n')
 }
 
-truffleExtract(
+buidlerExtract(
   keys,
   { buildDir, compile, outputDir, warning, verbose },
   err => {
