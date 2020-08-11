@@ -6,7 +6,7 @@ const rimraf = require('rimraf')
 
 const noop = () => {}
 
-const truffleExtract = (keys, options = {}, cb = noop) => {
+const buidlerExtract = (keys, options = {}, cb = noop) => {
   if (typeof options === 'function') {
     cb = options
     options = {}
@@ -19,7 +19,7 @@ const truffleExtract = (keys, options = {}, cb = noop) => {
   )
   assert(
     buildDir,
-    'Must supply a build directory where the truffle build files are located'
+    'Must supply a build directory where the buidler build files are located'
   )
   assert(
     outputDir,
@@ -33,7 +33,7 @@ const truffleExtract = (keys, options = {}, cb = noop) => {
 
     const { execSync } = require('child_process')
     try {
-      const output = execSync('npx truffle compile', { encoding: 'utf8' })
+      const output = execSync('npx buidler compile', { encoding: 'utf8' })
       if (verbose) {
         console.log(output)
       }
@@ -48,14 +48,14 @@ const truffleExtract = (keys, options = {}, cb = noop) => {
     if (err) {
       // eslint-disable-next-line standard/no-callback-literal
       cb(
-        `seems there was an error accessing ${buildDir}... did you forget to 'truffle compile'?`
+        `seems there was an error accessing ${buildDir}... did you forget to 'buidler compile'?`
       )
       return
     }
     if (!stat.isDirectory()) {
       // eslint-disable-next-line standard/no-callback-literal
       cb(
-        `given path (${buildDir}) is not a directory... did you forget to 'truffle compile'?`
+        `given path (${buildDir}) is not a directory... did you forget to 'buidler compile'?`
       )
       return
     }
@@ -99,7 +99,7 @@ const truffleExtract = (keys, options = {}, cb = noop) => {
             path.resolve(outputDir, file),
             JSON.stringify(extractedObj, null, 2),
             { encoding: 'utf8' },
-            err => {
+            (err) => {
               if (err) {
                 console.error(
                   `Unexpected failure writing ${file} to ${outputDir}`,
@@ -114,4 +114,4 @@ const truffleExtract = (keys, options = {}, cb = noop) => {
   })
 }
 
-module.exports = truffleExtract
+module.exports = buidlerExtract
